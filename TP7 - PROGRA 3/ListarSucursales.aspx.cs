@@ -23,8 +23,56 @@ namespace TP7___PROGRA_3
         {
             if (e.CommandName == "eventoSeleccionar")
             {
-                lblMensaje.Text = e.CommandArgument.ToString();
+                // Obtener el nombre desde CommandArgument
+                string nombreSucursal = e.CommandArgument.ToString();
+
+                // Obtener el ListViewItem donde se hizo clic
+                ListViewDataItem item = (ListViewDataItem)((Control)sender).NamingContainer;
+
+                // Buscar los otros controles (asegúrate de que tengan estos IDs en tu ListView)
+                HiddenField idSucursal = (HiddenField)item.FindControl("Id_Sucursal");
+                string id = idSucursal.Value;
+                Label txtDescripcion = (Label)item.FindControl("DescripcionSucursalLabel");
+
+                // Obtener la lista de sesión o crear una nueva
+                List<Sucursal> listaSucursales = Session["ListaSucursales"] as List<Sucursal> ?? new List<Sucursal>();
+
+                // Agregar a la lista
+                listaSucursales.Add(new Sucursal
+                {
+                    Id = id,
+                    Nombre = nombreSucursal,
+                    Descripcion = txtDescripcion.Text,
+                });
+
+                // Guardar en la sesión
+                Session["ListaSucursales"] = listaSucursales;
+
+                // Mostrar mensaje
+                lblMensaje.Text = $"Sucursal '{nombreSucursal}' agregada a la sesión.";
             }
+        }
+
+        protected void btnBusqueda_Click(object sender, EventArgs e)
+        {
+            string busqueda = txtBusqueda.Text.Trim();
+            if (busqueda.Length > 0)
+            {
+                SqlDataSourceSucursales.SelectCommand =
+                    "SELECT [NombreSucursal], [DescripcionSucursal], [URL_Imagen_Sucursal], [Id_Sucursal] " +
+                    "FROM [Sucursal] " +
+                    "WHERE [NombreSucursal] LIKE @busqueda";
+
+                SqlDataSourceSucursales.SelectParameters.Clear(); // Limpia si ya había parámetros antes
+                SqlDataSourceSucursales.SelectParameters.Add("busqueda", "%" + busqueda + "%");
+            }
+            else
+            {
+                SqlDataSourceSucursales.SelectCommand =
+                    "SELECT [NombreSucursal], [DescripcionSucursal], [URL_Imagen_Sucursal], [Id_Sucursal] " +
+                    "FROM [Sucursal] ";
+            }
+
         }
     }
 }

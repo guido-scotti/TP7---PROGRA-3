@@ -93,6 +93,7 @@
     <Compile Include="ListarSucursales.aspx.designer.cs">
       <DependentUpon>ListarSucursales.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Sucursales.cs" />
     <Compile Include="SucursalesSeleccionadas.aspx.cs">
       <DependentUpon>SucursalesSeleccionadas.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

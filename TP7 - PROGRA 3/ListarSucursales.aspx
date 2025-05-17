@@ -118,7 +118,7 @@
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         <asp:TextBox ID="txtBusqueda" runat="server" Font-Bold="True" Font-Names="Bahnschrift" Font-Size="Medium" ForeColor="#333333" Width="288px"></asp:TextBox>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        <asp:Button ID="btnBusqueda" runat="server" Font-Bold="True" Font-Names="Bahnschrift" Font-Size="Small" ForeColor="Black" Text="Buscar" />
+                        <asp:Button ID="btnBusqueda" runat="server" Font-Bold="True" Font-Names="Bahnschrift" Font-Size="Small" ForeColor="Black" Text="Buscar" OnClick="btnBusqueda_Click" />
                     </td>
                     <td>&nbsp;</td>
                     <td class="auto-style13">&nbsp;</td>
@@ -147,6 +147,7 @@
                 </tr>
                 <tr>
                     <td class="auto-style4" colspan="2">
+                        <asp:Label ID="lblMensaje" runat="server" Font-Bold="True" Font-Names="Bahnschrift" Font-Size="Medium" ForeColor="#00CC00"></asp:Label>
                         <asp:ListView ID="ListViewSucursales" runat="server" style="display: table; margin: auto;" DataSourceID="SqlDataSourceSucursales" GroupItemCount="3" OnSelectedIndexChanged="ListViewSucursales_SelectedIndexChanged" >
                             <EditItemTemplate>
                                 <td runat="server" style="background-color:#008A8C;color: #FFFFFF;">NombreSucursal:
@@ -208,7 +209,7 @@
                                     <br />
 
                                     <br />
-
+                                    <asp:HiddenField ID="Id_Sucursal" runat="server" Value='<%# Bind("Id_Sucursal") %>' />
                                 </td>  
                             </ItemTemplate>
                             <LayoutTemplate>
@@ -259,7 +260,7 @@
                 <tr>
                     <td class="auto-style4">&nbsp;</td>
                     <td>
-                        <asp:SqlDataSource ID="SqlDataSourceSucursales" runat="server" ConnectionString="<%$ ConnectionStrings:BDSucursalesConnectionString %>" SelectCommand="SELECT [NombreSucursal], [DescripcionSucursal], [URL_Imagen_Sucursal] FROM [Sucursal]"></asp:SqlDataSource>
+                        <asp:SqlDataSource ID="SqlDataSourceSucursales" runat="server" ConnectionString="<%$ ConnectionStrings:BDSucursalesConnectionStringLast %>" SelectCommand="SELECT [NombreSucursal], [DescripcionSucursal], [URL_Imagen_Sucursal], [Id_Sucursal] FROM [Sucursal]"></asp:SqlDataSource>
                     </td>
                     <td>&nbsp;</td>
                     <td class="auto-style13">&nbsp;</td>
@@ -275,8 +276,7 @@
                 <tr>
                     <td class="auto-style7"></td>
                     <td class="auto-style7">
-                        <asp:Label ID="lblMensaje" runat="server" Font-Bold="True" Font-Names="Bahnschrift" Font-Size="Medium" ForeColor="#00CC00"></asp:Label>
-                    </td>
+                        &nbsp;</td>
                     <td class="auto-style7"></td>
                     <td class="auto-style15"></td>
                     <td class="auto-style7"></td>
