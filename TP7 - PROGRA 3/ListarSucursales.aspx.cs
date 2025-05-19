@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -14,10 +15,7 @@ namespace TP7___PROGRA_3
 
 		}
 
-        protected void ListViewSucursales_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
+        
 
         protected void btnSeleccionar_Command(object sender, CommandEventArgs e)
         {
@@ -37,13 +35,18 @@ namespace TP7___PROGRA_3
                 // Obtener la lista de sesión o crear una nueva
                 List<Sucursal> listaSucursales = Session["ListaSucursales"] as List<Sucursal> ?? new List<Sucursal>();
 
-                // Agregar a la lista
-                listaSucursales.Add(new Sucursal
+                
+                Sucursal sucursal = new Sucursal
                 {
                     Id = id,
                     Nombre = nombreSucursal,
-                    Descripcion = txtDescripcion.Text,
-                });
+                    Descripcion = txtDescripcion.Text
+                };
+
+                if (!listaSucursales.Any(s => s.Id == sucursal.Id)) { 
+                // Agregar a la lista
+                listaSucursales.Add(sucursal);
+                }
 
                 // Guardar en la sesión
                 Session["ListaSucursales"] = listaSucursales;
@@ -74,5 +77,40 @@ namespace TP7___PROGRA_3
             }
 
         }
+
+        protected void Btn_Provincias_Command(object sender, CommandEventArgs e)
+        {
+            if (e.CommandName == "SelectProvincia")
+            {
+                // Obtener el IdProvincia del botón clickeado
+                int idProvincia = Convert.ToInt32(e.CommandArgument);
+
+                // Filtrar el DataList de sucursales
+                FiltrarSucursalesPorProvincia(idProvincia);
+            }
+
+
+        }
+
+
+
+        protected void FiltrarSucursalesPorProvincia(int idProvincia)
+        {
+            SqlDataSourceSucursales.SelectCommand = "SELECT [NombreSucursal], [DescripcionSucursal], [URL_Imagen_Sucursal], [Id_Sucursal] " +
+        "FROM [Sucursal] WHERE Id_ProvinciaSucursal = @IdProvincia";
+
+            SqlDataSourceSucursales.SelectParameters.Clear();
+
+            
+            SqlDataSourceSucursales.SelectParameters.Add("IdProvincia", idProvincia.ToString());
+
+            
+
+
+        }
+
+        
+
+        
     }
 }

@@ -12,6 +12,26 @@ namespace TP7___PROGRA_3
 		protected void Page_Load(object sender, EventArgs e)
 		{
 
-		}
+			if (!IsPostBack)
+			{
+                List<Sucursal> listaSucursales = Session["ListaSucursales"] as List<Sucursal> ?? new List<Sucursal>();
+
+				if (listaSucursales != null && listaSucursales.Count != 0)
+				{
+
+
+					GridEmpresas.DataSource = listaSucursales;
+
+					GridEmpresas.DataBind();
+				}
+				else
+				{
+					Label1.Text = "No hay empresas Seleccionadas";
+				}
+
+            }
+
+
+        }
 	}
 }

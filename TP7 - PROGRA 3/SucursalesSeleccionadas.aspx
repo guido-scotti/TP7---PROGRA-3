@@ -31,7 +31,9 @@
                 <td class="auto-style2"></td>
             </tr>
             <tr>
-                <td>&nbsp;</td>
+                <td>
+                    <asp:Label ID="Label1" runat="server"></asp:Label>
+                </td>
                 <td>&nbsp;</td>
                 <td>&nbsp;</td>
                 <td>&nbsp;</td>
@@ -45,7 +47,10 @@
                 <td>&nbsp;</td>
             </tr>
             <tr>
-                <td>&nbsp;</td>
+                <td>
+                    <asp:GridView ID="GridEmpresas" runat="server">
+                    </asp:GridView>
+                </td>
                 <td>&nbsp;</td>
                 <td>&nbsp;</td>
                 <td>&nbsp;</td>
