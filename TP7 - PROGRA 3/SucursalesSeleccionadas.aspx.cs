@@ -26,7 +26,7 @@ namespace TP7___PROGRA_3
 				}
 				else
 				{
-					Label1.Text = "No hay empresas Seleccionadas";
+					Label1.Text = "¡No hay empresas seleccionadas!";
 				}
 
             }
